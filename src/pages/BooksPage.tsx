@@ -4,7 +4,6 @@ import AppLayout from '@/components/AppLayout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Search, Trash2, Edit, BookOpen, AlertTriangle, Download } from 'lucide-react';
 import { CATEGORIES, getBookCoverColor } from '@/types/library';
 import { toast } from 'sonner';
@@ -12,10 +11,11 @@ import { Link } from 'react-router-dom';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Badge } from '@/components/ui/badge';
 
 const ITEMS_PER_PAGE = 12;
 
-// Simulate some books having digital copies (every 3rd book)
 const hasDigitalCopy = (id: string) => {
   let hash = 0;
   for (let i = 0; i < id.length; i++) hash = id.charCodeAt(i) + ((hash << 5) - hash);
@@ -41,6 +41,11 @@ const BooksPage = () => {
   const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
   const paginated = filtered.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE);
   const isAdmin = currentUser?.role === 'admin';
+
+  const categoryCounts = books.reduce<Record<string, number>>((acc, b) => {
+    acc[b.category] = (acc[b.category] || 0) + 1;
+    return acc;
+  }, {});
 
   const handleDelete = (id: string) => { deleteBook(id); toast.success('Book deleted successfully'); };
 
@@ -75,32 +80,34 @@ const BooksPage = () => {
   return (
     <AppLayout>
       <div className="space-y-6">
+        {/* Header */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
             <h1 className="font-display text-3xl font-bold">Book Collection</h1>
-            <p className="text-muted-foreground mt-1">{filtered.length} of {books.length} books</p>
+            <p className="text-muted-foreground mt-1">
+              {filtered.length} of {books.length} books
+            </p>
           </div>
           {isAdmin && (
             <Link to="/books/add">
-              <Button className="gap-2 bg-gradient-to-r from-blue-500 to-purple-600 hover:opacity-90">
+              <Button className="gap-2 bg-gradient-to-r from-primary to-accent hover:opacity-90">
                 <BookOpen className="h-4 w-4" /> Add Book
               </Button>
             </Link>
           )}
         </div>
 
+        {/* Search & Availability filter */}
         <div className="flex flex-col sm:flex-row gap-3">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input placeholder="Search by title or author..." value={search} onChange={e => { setSearch(e.target.value); setPage(1); }} className="pl-10" />
+            <Input
+              placeholder="Search by title or author..."
+              value={search}
+              onChange={e => { setSearch(e.target.value); setPage(1); }}
+              className="pl-10"
+            />
           </div>
-          <Select value={category} onValueChange={v => { setCategory(v); setPage(1); }}>
-            <SelectTrigger className="w-full sm:w-52"><SelectValue placeholder="Category" /></SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Categories</SelectItem>
-              {CATEGORIES.map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
-            </SelectContent>
-          </Select>
           <Select value={availability} onValueChange={v => { setAvailability(v); setPage(1); }}>
             <SelectTrigger className="w-full sm:w-44"><SelectValue placeholder="Availability" /></SelectTrigger>
             <SelectContent>
@@ -111,58 +118,86 @@ const BooksPage = () => {
           </Select>
         </div>
 
+        {/* Category pills — clickable for instant filtering */}
+        <div className="flex flex-wrap gap-2">
+          <button
+            onClick={() => { setCategory('all'); setPage(1); }}
+            className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 ${
+              category === 'all'
+                ? 'bg-primary text-primary-foreground shadow-md'
+                : 'bg-secondary text-secondary-foreground hover:bg-secondary/80'
+            }`}
+          >
+            All ({books.length})
+          </button>
+          {CATEGORIES.map(c => (
+            <button
+              key={c}
+              onClick={() => { setCategory(c); setPage(1); }}
+              className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 ${
+                category === c
+                  ? 'bg-primary text-primary-foreground shadow-md'
+                  : 'bg-secondary text-secondary-foreground hover:bg-secondary/80'
+              }`}
+            >
+              {c} ({categoryCounts[c] || 0})
+            </button>
+          ))}
+        </div>
+
+        {/* Book Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
           {paginated.map(book => (
             <Card key={book.id} className="overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 group">
-              <div className={`h-32 bg-gradient-to-br ${getBookCoverColor(book.title)} flex items-end relative p-4`}>
-                <BookOpen className="absolute top-3 right-3 h-8 w-8 text-white/15" />
+              <div className={`h-36 bg-gradient-to-br ${getBookCoverColor(book.title)} flex items-end relative p-4`}>
+                <BookOpen className="absolute top-3 right-3 h-10 w-10 text-white/10" />
                 {hasDigitalCopy(book.id) && (
                   <span className="absolute top-3 left-3 text-[9px] bg-white/20 backdrop-blur-sm text-white px-2 py-0.5 rounded-full font-semibold">📄 PDF</span>
                 )}
-                <p className="text-white/90 font-display font-bold text-xs leading-tight line-clamp-2 drop-shadow-lg">{book.title}</p>
+                <p className="text-white/90 font-display font-bold text-sm leading-tight line-clamp-2 drop-shadow-lg">{book.title}</p>
               </div>
-              <CardContent className="p-4 space-y-2">
+              <CardContent className="p-4 space-y-3">
                 <div>
                   <h3 className="font-display font-semibold text-sm leading-tight line-clamp-1">{book.title}</h3>
                   <p className="text-xs text-muted-foreground mt-0.5">{book.author}</p>
                 </div>
-                <span className="inline-block text-[10px] bg-secondary px-2 py-0.5 rounded-full text-secondary-foreground font-medium">{book.category}</span>
+                <Badge variant="secondary" className="text-[10px]">{book.category}</Badge>
                 <div className="flex items-center justify-between pt-2 border-t">
-                  <span className={`text-xs font-semibold ${book.available > 0 ? 'text-success' : 'text-destructive'}`}>
-                    {book.available > 0 ? `${book.available}/${book.quantity}` : 'Out'}
+                  <span className={`text-xs font-bold ${book.available > 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-destructive'}`}>
+                    {book.available > 0 ? `${book.available}/${book.quantity} available` : 'Out of stock'}
                   </span>
-                  <div className="flex gap-1">
-                    {hasDigitalCopy(book.id) && (
-                      <Button size="sm" variant="ghost" onClick={() => handleDownload(book.title)} className="h-7 w-7 p-0 text-primary hover:text-primary">
-                        <Download className="h-3.5 w-3.5" />
-                      </Button>
-                    )}
-                    {currentUser && book.available > 0 && (
-                      <Button size="sm" variant="outline" onClick={() => handleBorrow(book.id)} className="h-7 text-xs px-2 hover:bg-primary hover:text-primary-foreground">
-                        Borrow
-                      </Button>
-                    )}
-                    {isAdmin && (
-                      <>
-                        <Button size="sm" variant="ghost" onClick={() => openEdit(book.id)} className="h-7 w-7 p-0"><Edit className="h-3.5 w-3.5" /></Button>
-                        <AlertDialog>
-                          <AlertDialogTrigger asChild>
-                            <Button size="sm" variant="ghost" className="h-7 w-7 p-0 text-destructive hover:text-destructive"><Trash2 className="h-3.5 w-3.5" /></Button>
-                          </AlertDialogTrigger>
-                          <AlertDialogContent>
-                            <AlertDialogHeader>
-                              <AlertDialogTitle className="flex items-center gap-2"><AlertTriangle className="h-5 w-5 text-destructive" />Delete Book</AlertDialogTitle>
-                              <AlertDialogDescription>Delete "{book.title}"? This cannot be undone.</AlertDialogDescription>
-                            </AlertDialogHeader>
-                            <AlertDialogFooter>
-                              <AlertDialogCancel>Cancel</AlertDialogCancel>
-                              <AlertDialogAction onClick={() => handleDelete(book.id)} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">Delete</AlertDialogAction>
-                            </AlertDialogFooter>
-                          </AlertDialogContent>
-                        </AlertDialog>
-                      </>
-                    )}
-                  </div>
+                </div>
+                <div className="flex gap-1.5 flex-wrap">
+                  {hasDigitalCopy(book.id) && (
+                    <Button size="sm" variant="outline" onClick={() => handleDownload(book.title)} className="h-7 text-xs px-2 gap-1">
+                      <Download className="h-3 w-3" /> PDF
+                    </Button>
+                  )}
+                  {currentUser && book.available > 0 && (
+                    <Button size="sm" onClick={() => handleBorrow(book.id)} className="h-7 text-xs px-3 bg-gradient-to-r from-primary to-accent hover:opacity-90 text-primary-foreground">
+                      Borrow
+                    </Button>
+                  )}
+                  {isAdmin && (
+                    <>
+                      <Button size="sm" variant="ghost" onClick={() => openEdit(book.id)} className="h-7 w-7 p-0"><Edit className="h-3.5 w-3.5" /></Button>
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <Button size="sm" variant="ghost" className="h-7 w-7 p-0 text-destructive hover:text-destructive"><Trash2 className="h-3.5 w-3.5" /></Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle className="flex items-center gap-2"><AlertTriangle className="h-5 w-5 text-destructive" />Delete Book</AlertDialogTitle>
+                            <AlertDialogDescription>Delete "{book.title}"? This cannot be undone.</AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                            <AlertDialogAction onClick={() => handleDelete(book.id)} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">Delete</AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
+                    </>
+                  )}
                 </div>
               </CardContent>
             </Card>
@@ -206,7 +241,7 @@ const BooksPage = () => {
             </div>
             <div className="space-y-2"><Label>ISBN</Label><Input value={editForm.isbn} onChange={e => setEditForm({ ...editForm, isbn: e.target.value })} /></div>
             <div className="space-y-2"><Label>Quantity</Label><Input type="number" value={editForm.quantity} onChange={e => setEditForm({ ...editForm, quantity: Number(e.target.value) })} /></div>
-            <Button onClick={handleEdit} className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:opacity-90">Save Changes</Button>
+            <Button onClick={handleEdit} className="w-full bg-gradient-to-r from-primary to-accent hover:opacity-90">Save Changes</Button>
           </div>
         </DialogContent>
       </Dialog>
