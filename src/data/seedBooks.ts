@@ -1,0 +1,123 @@
+import { Book } from '@/types/library';
+
+export const CS_BOOKS: Book[] = [
+  // Data Structures
+  { id: 'cs1', title: 'Introduction to Algorithms', author: 'Thomas H. Cormen', category: 'Algorithms', isbn: '978-0-262-03384-8', quantity: 6, available: 4 },
+  { id: 'cs2', title: 'Data Structures and Algorithms in Java', author: 'Robert Lafore', category: 'Data Structures', isbn: '978-0-672-32453-6', quantity: 4, available: 3 },
+  { id: 'cs3', title: 'Algorithms', author: 'Robert Sedgewick', category: 'Algorithms', isbn: '978-0-321-57351-3', quantity: 5, available: 5 },
+  { id: 'cs4', title: 'The Algorithm Design Manual', author: 'Steven S. Skiena', category: 'Algorithms', isbn: '978-1-848-00070-4', quantity: 3, available: 2 },
+  { id: 'cs5', title: 'Grokking Algorithms', author: 'Aditya Bhargava', category: 'Algorithms', isbn: '978-1-617-29284-1', quantity: 5, available: 5 },
+  { id: 'cs6', title: 'Data Structures Using C', author: 'Reema Thareja', category: 'Data Structures', isbn: '978-0-198-09930-7', quantity: 4, available: 3 },
+  { id: 'cs7', title: 'Data Structures and Algorithm Analysis in C++', author: 'Mark Allen Weiss', category: 'Data Structures', isbn: '978-0-132-84737-7', quantity: 3, available: 2 },
+  { id: 'cs8', title: 'Algorithms Unlocked', author: 'Thomas H. Cormen', category: 'Algorithms', isbn: '978-0-262-51880-2', quantity: 4, available: 4 },
+  { id: 'cs9', title: 'Problem Solving with Algorithms and Data Structures', author: 'Bradley N. Miller', category: 'Data Structures', isbn: '978-1-590-28053-9', quantity: 3, available: 3 },
+  { id: 'cs10', title: 'Competitive Programming 3', author: 'Steven Halim', category: 'Algorithms', isbn: '978-9-793-26582-0', quantity: 2, available: 1 },
+
+  // Operating Systems
+  { id: 'cs11', title: 'Operating System Concepts', author: 'Abraham Silberschatz', category: 'Operating Systems', isbn: '978-1-118-06333-0', quantity: 5, available: 3 },
+  { id: 'cs12', title: 'Modern Operating Systems', author: 'Andrew S. Tanenbaum', category: 'Operating Systems', isbn: '978-0-133-59162-0', quantity: 4, available: 4 },
+  { id: 'cs13', title: 'Operating Systems: Three Easy Pieces', author: 'Remzi H. Arpaci-Dusseau', category: 'Operating Systems', isbn: '978-1-985-08659-3', quantity: 6, available: 5 },
+  { id: 'cs14', title: 'Linux Kernel Development', author: 'Robert Love', category: 'Operating Systems', isbn: '978-0-672-32946-3', quantity: 3, available: 2 },
+  { id: 'cs15', title: 'Understanding the Linux Kernel', author: 'Daniel P. Bovet', category: 'Operating Systems', isbn: '978-0-596-00565-8', quantity: 3, available: 3 },
+  { id: 'cs16', title: 'The Design of the UNIX Operating System', author: 'Maurice J. Bach', category: 'Operating Systems', isbn: '978-0-132-01757-5', quantity: 2, available: 1 },
+  { id: 'cs17', title: 'Windows Internals Part 1', author: 'Pavel Yosifovich', category: 'Operating Systems', isbn: '978-0-735-68441-8', quantity: 3, available: 3 },
+  { id: 'cs18', title: 'Operating Systems: Internals and Design', author: 'William Stallings', category: 'Operating Systems', isbn: '978-0-134-67014-0', quantity: 4, available: 2 },
+  { id: 'cs19', title: 'Systems Programming', author: 'Robert Love', category: 'Operating Systems', isbn: '978-1-449-33953-1', quantity: 3, available: 3 },
+  { id: 'cs20', title: 'xv6: A Simple Unix-like Teaching OS', author: 'Russ Cox', category: 'Operating Systems', isbn: '978-0-000-00020-0', quantity: 5, available: 5 },
+
+  // Networking
+  { id: 'cs21', title: 'Computer Networking: A Top-Down Approach', author: 'James Kurose', category: 'Networking', isbn: '978-0-133-59414-0', quantity: 5, available: 4 },
+  { id: 'cs22', title: 'Computer Networks', author: 'Andrew S. Tanenbaum', category: 'Networking', isbn: '978-0-132-12695-3', quantity: 4, available: 3 },
+  { id: 'cs23', title: 'TCP/IP Illustrated Volume 1', author: 'W. Richard Stevens', category: 'Networking', isbn: '978-0-321-33631-6', quantity: 3, available: 2 },
+  { id: 'cs24', title: 'Network Warrior', author: 'Gary A. Donahue', category: 'Networking', isbn: '978-1-449-38799-0', quantity: 3, available: 3 },
+  { id: 'cs25', title: 'CCNA 200-301 Official Cert Guide', author: 'Wendell Odom', category: 'Networking', isbn: '978-0-135-79231-7', quantity: 4, available: 4 },
+  { id: 'cs26', title: 'Data Communications and Networking', author: 'Behrouz A. Forouzan', category: 'Networking', isbn: '978-0-073-37608-5', quantity: 5, available: 3 },
+  { id: 'cs27', title: 'Network Security Essentials', author: 'William Stallings', category: 'Networking', isbn: '978-0-134-52733-8', quantity: 3, available: 2 },
+  { id: 'cs28', title: 'Internetworking with TCP/IP', author: 'Douglas E. Comer', category: 'Networking', isbn: '978-0-136-08530-0', quantity: 3, available: 3 },
+  { id: 'cs29', title: 'Unix Network Programming', author: 'W. Richard Stevens', category: 'Networking', isbn: '978-0-131-41155-5', quantity: 2, available: 1 },
+  { id: 'cs30', title: 'HTTP: The Definitive Guide', author: 'David Gourley', category: 'Networking', isbn: '978-1-565-92509-0', quantity: 4, available: 4 },
+
+  // Databases
+  { id: 'cs31', title: 'Database System Concepts', author: 'Abraham Silberschatz', category: 'Databases', isbn: '978-0-078-02215-9', quantity: 5, available: 4 },
+  { id: 'cs32', title: 'Fundamentals of Database Systems', author: 'Ramez Elmasri', category: 'Databases', isbn: '978-0-133-97077-7', quantity: 4, available: 3 },
+  { id: 'cs33', title: 'Designing Data-Intensive Applications', author: 'Martin Kleppmann', category: 'Databases', isbn: '978-1-449-37332-0', quantity: 6, available: 5 },
+  { id: 'cs34', title: 'SQL in 10 Minutes', author: 'Ben Forta', category: 'Databases', isbn: '978-0-672-33607-2', quantity: 5, available: 5 },
+  { id: 'cs35', title: 'Learning SQL', author: 'Alan Beaulieu', category: 'Databases', isbn: '978-1-492-05761-1', quantity: 4, available: 4 },
+  { id: 'cs36', title: 'NoSQL Distilled', author: 'Pramod J. Sadalage', category: 'Databases', isbn: '978-0-321-82662-6', quantity: 3, available: 2 },
+  { id: 'cs37', title: 'MongoDB: The Definitive Guide', author: 'Shannon Bradshaw', category: 'Databases', isbn: '978-1-491-95446-1', quantity: 3, available: 3 },
+  { id: 'cs38', title: 'Database Internals', author: 'Alex Petrov', category: 'Databases', isbn: '978-1-492-04034-7', quantity: 3, available: 2 },
+  { id: 'cs39', title: 'High Performance MySQL', author: 'Baron Schwartz', category: 'Databases', isbn: '978-1-449-31428-6', quantity: 4, available: 3 },
+  { id: 'cs40', title: 'PostgreSQL Up & Running', author: 'Regina O. Obe', category: 'Databases', isbn: '978-1-491-96341-8', quantity: 3, available: 3 },
+
+  // Artificial Intelligence & Machine Learning
+  { id: 'cs41', title: 'Artificial Intelligence: A Modern Approach', author: 'Stuart Russell', category: 'Artificial Intelligence', isbn: '978-0-134-61099-3', quantity: 5, available: 3 },
+  { id: 'cs42', title: 'Deep Learning', author: 'Ian Goodfellow', category: 'Artificial Intelligence', isbn: '978-0-262-03561-3', quantity: 4, available: 2 },
+  { id: 'cs43', title: 'Hands-On Machine Learning', author: 'Aurélien Géron', category: 'Artificial Intelligence', isbn: '978-1-492-03264-9', quantity: 6, available: 5 },
+  { id: 'cs44', title: 'Pattern Recognition and Machine Learning', author: 'Christopher M. Bishop', category: 'Artificial Intelligence', isbn: '978-0-387-31073-2', quantity: 3, available: 2 },
+  { id: 'cs45', title: 'Machine Learning Yearning', author: 'Andrew Ng', category: 'Artificial Intelligence', isbn: '978-0-999-30040-5', quantity: 5, available: 5 },
+  { id: 'cs46', title: 'Natural Language Processing with Python', author: 'Steven Bird', category: 'Artificial Intelligence', isbn: '978-0-596-51649-9', quantity: 3, available: 3 },
+  { id: 'cs47', title: 'Reinforcement Learning: An Introduction', author: 'Richard S. Sutton', category: 'Artificial Intelligence', isbn: '978-0-262-03924-6', quantity: 3, available: 2 },
+  { id: 'cs48', title: 'The Hundred-Page Machine Learning Book', author: 'Andriy Burkov', category: 'Artificial Intelligence', isbn: '978-1-999-57950-0', quantity: 4, available: 4 },
+  { id: 'cs49', title: 'Mathematics for Machine Learning', author: 'Marc Peter Deisenroth', category: 'Artificial Intelligence', isbn: '978-1-108-45514-5', quantity: 3, available: 3 },
+  { id: 'cs50', title: 'AI Superpowers', author: 'Kai-Fu Lee', category: 'Artificial Intelligence', isbn: '978-1-328-54639-6', quantity: 4, available: 4 },
+
+  // Software Engineering
+  { id: 'cs51', title: 'Clean Code', author: 'Robert C. Martin', category: 'Software Engineering', isbn: '978-0-13-235088-4', quantity: 6, available: 5 },
+  { id: 'cs52', title: 'The Pragmatic Programmer', author: 'Andrew Hunt', category: 'Software Engineering', isbn: '978-0-135-95705-9', quantity: 5, available: 4 },
+  { id: 'cs53', title: 'Design Patterns', author: 'Erich Gamma', category: 'Software Engineering', isbn: '978-0-201-63361-0', quantity: 4, available: 3 },
+  { id: 'cs54', title: 'Refactoring', author: 'Martin Fowler', category: 'Software Engineering', isbn: '978-0-134-75759-8', quantity: 3, available: 2 },
+  { id: 'cs55', title: 'Software Engineering', author: 'Ian Sommerville', category: 'Software Engineering', isbn: '978-0-133-94303-0', quantity: 5, available: 5 },
+  { id: 'cs56', title: 'Code Complete', author: 'Steve McConnell', category: 'Software Engineering', isbn: '978-0-735-61967-8', quantity: 4, available: 3 },
+  { id: 'cs57', title: 'Head First Design Patterns', author: 'Eric Freeman', category: 'Software Engineering', isbn: '978-0-596-00712-6', quantity: 5, available: 5 },
+  { id: 'cs58', title: 'Clean Architecture', author: 'Robert C. Martin', category: 'Software Engineering', isbn: '978-0-134-49416-6', quantity: 4, available: 3 },
+  { id: 'cs59', title: 'Mythical Man-Month', author: 'Frederick P. Brooks Jr.', category: 'Software Engineering', isbn: '978-0-201-83595-3', quantity: 3, available: 3 },
+  { id: 'cs60', title: 'Domain-Driven Design', author: 'Eric Evans', category: 'Software Engineering', isbn: '978-0-321-12521-7', quantity: 3, available: 2 },
+
+  // Programming Languages
+  { id: 'cs61', title: 'The C Programming Language', author: 'Brian W. Kernighan', category: 'Programming', isbn: '978-0-131-10362-7', quantity: 5, available: 4 },
+  { id: 'cs62', title: 'Effective Java', author: 'Joshua Bloch', category: 'Programming', isbn: '978-0-134-68599-1', quantity: 4, available: 3 },
+  { id: 'cs63', title: 'Python Crash Course', author: 'Eric Matthes', category: 'Programming', isbn: '978-1-593-27928-8', quantity: 6, available: 6 },
+  { id: 'cs64', title: 'JavaScript: The Good Parts', author: 'Douglas Crockford', category: 'Programming', isbn: '978-0-596-51774-8', quantity: 4, available: 3 },
+  { id: 'cs65', title: 'C++ Primer', author: 'Stanley B. Lippman', category: 'Programming', isbn: '978-0-321-71411-4', quantity: 4, available: 2 },
+  { id: 'cs66', title: 'Eloquent JavaScript', author: 'Marijn Haverbeke', category: 'Programming', isbn: '978-1-593-27950-9', quantity: 5, available: 5 },
+  { id: 'cs67', title: 'The Rust Programming Language', author: 'Steve Klabnik', category: 'Programming', isbn: '978-1-718-50044-0', quantity: 3, available: 3 },
+  { id: 'cs68', title: 'Learning Go', author: 'Jon Bodner', category: 'Programming', isbn: '978-1-492-07720-6', quantity: 3, available: 2 },
+  { id: 'cs69', title: 'Programming in Haskell', author: 'Graham Hutton', category: 'Programming', isbn: '978-1-316-62622-1', quantity: 2, available: 2 },
+  { id: 'cs70', title: 'Automate the Boring Stuff with Python', author: 'Al Sweigart', category: 'Programming', isbn: '978-1-593-27992-9', quantity: 5, available: 4 },
+
+  // Computer Architecture & Theory
+  { id: 'cs71', title: 'Computer Organization and Design', author: 'David A. Patterson', category: 'Computer Architecture', isbn: '978-0-124-07726-3', quantity: 4, available: 3 },
+  { id: 'cs72', title: 'Computer Architecture: A Quantitative Approach', author: 'John L. Hennessy', category: 'Computer Architecture', isbn: '978-0-128-11905-1', quantity: 3, available: 2 },
+  { id: 'cs73', title: 'Digital Design and Computer Architecture', author: 'David Harris', category: 'Computer Architecture', isbn: '978-0-123-94424-5', quantity: 4, available: 4 },
+  { id: 'cs74', title: 'Structured Computer Organization', author: 'Andrew S. Tanenbaum', category: 'Computer Architecture', isbn: '978-0-132-91652-3', quantity: 3, available: 3 },
+  { id: 'cs75', title: 'Introduction to Computing Systems', author: 'Yale N. Patt', category: 'Computer Architecture', isbn: '978-1-260-15053-4', quantity: 4, available: 3 },
+  { id: 'cs76', title: 'Introduction to the Theory of Computation', author: 'Michael Sipser', category: 'Theory of Computation', isbn: '978-1-133-18779-0', quantity: 4, available: 3 },
+  { id: 'cs77', title: 'Compilers: Principles, Techniques, and Tools', author: 'Alfred V. Aho', category: 'Theory of Computation', isbn: '978-0-321-48681-3', quantity: 3, available: 2 },
+  { id: 'cs78', title: 'Discrete Mathematics and Its Applications', author: 'Kenneth H. Rosen', category: 'Theory of Computation', isbn: '978-0-073-38309-5', quantity: 5, available: 4 },
+  { id: 'cs79', title: 'Formal Languages and Automata Theory', author: 'Peter Linz', category: 'Theory of Computation', isbn: '978-1-284-07724-2', quantity: 3, available: 3 },
+  { id: 'cs80', title: 'Concrete Mathematics', author: 'Ronald L. Graham', category: 'Theory of Computation', isbn: '978-0-201-55802-9', quantity: 3, available: 2 },
+
+  // Cybersecurity
+  { id: 'cs81', title: 'The Web Application Hacker\'s Handbook', author: 'Dafydd Stuttard', category: 'Cybersecurity', isbn: '978-1-118-02647-2', quantity: 4, available: 3 },
+  { id: 'cs82', title: 'Hacking: The Art of Exploitation', author: 'Jon Erickson', category: 'Cybersecurity', isbn: '978-1-593-27144-2', quantity: 3, available: 2 },
+  { id: 'cs83', title: 'Cryptography and Network Security', author: 'William Stallings', category: 'Cybersecurity', isbn: '978-0-134-44428-8', quantity: 5, available: 4 },
+  { id: 'cs84', title: 'Practical Malware Analysis', author: 'Michael Sikorski', category: 'Cybersecurity', isbn: '978-1-593-27290-6', quantity: 3, available: 3 },
+  { id: 'cs85', title: 'Security Engineering', author: 'Ross Anderson', category: 'Cybersecurity', isbn: '978-1-119-64278-7', quantity: 3, available: 2 },
+  { id: 'cs86', title: 'Penetration Testing', author: 'Georgia Weidman', category: 'Cybersecurity', isbn: '978-1-593-27564-8', quantity: 4, available: 4 },
+  { id: 'cs87', title: 'Black Hat Python', author: 'Justin Seitz', category: 'Cybersecurity', isbn: '978-1-718-50112-6', quantity: 3, available: 3 },
+  { id: 'cs88', title: 'Applied Cryptography', author: 'Bruce Schneier', category: 'Cybersecurity', isbn: '978-1-119-09672-6', quantity: 2, available: 1 },
+  { id: 'cs89', title: 'Cybersecurity and Cyberwar', author: 'P.W. Singer', category: 'Cybersecurity', isbn: '978-0-199-91811-7', quantity: 3, available: 3 },
+  { id: 'cs90', title: 'Blue Team Handbook', author: 'Don Murdoch', category: 'Cybersecurity', isbn: '978-1-500-73471-4', quantity: 3, available: 2 },
+
+  // Web Dev & Cloud
+  { id: 'cs91', title: 'Learning React', author: 'Alex Banks', category: 'Web Development', isbn: '978-1-492-05172-5', quantity: 5, available: 4 },
+  { id: 'cs92', title: 'Full-Stack React, TypeScript, and Node', author: 'David Choi', category: 'Web Development', isbn: '978-1-839-21993-1', quantity: 4, available: 3 },
+  { id: 'cs93', title: 'Node.js Design Patterns', author: 'Mario Casciaro', category: 'Web Development', isbn: '978-1-839-21411-0', quantity: 3, available: 3 },
+  { id: 'cs94', title: 'CSS in Depth', author: 'Keith J. Grant', category: 'Web Development', isbn: '978-1-617-29345-9', quantity: 4, available: 4 },
+  { id: 'cs95', title: 'Django for Beginners', author: 'William S. Vincent', category: 'Web Development', isbn: '978-1-735-46702-4', quantity: 3, available: 3 },
+  { id: 'cs96', title: 'Kubernetes in Action', author: 'Marko Luksa', category: 'Cloud Computing', isbn: '978-1-617-29372-5', quantity: 3, available: 2 },
+  { id: 'cs97', title: 'Docker Deep Dive', author: 'Nigel Poulton', category: 'Cloud Computing', isbn: '978-1-916-58530-8', quantity: 4, available: 4 },
+  { id: 'cs98', title: 'Cloud Native Patterns', author: 'Cornelia Davis', category: 'Cloud Computing', isbn: '978-1-617-29419-7', quantity: 3, available: 3 },
+  { id: 'cs99', title: 'Site Reliability Engineering', author: 'Betsy Beyer', category: 'Cloud Computing', isbn: '978-1-491-92912-4', quantity: 4, available: 3 },
+  { id: 'cs100', title: 'The Phoenix Project', author: 'Gene Kim', category: 'Software Engineering', isbn: '978-1-942-78829-4', quantity: 5, available: 5 },
+];

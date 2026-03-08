@@ -13,7 +13,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { Label } from '@/components/ui/label';
 
-const ITEMS_PER_PAGE = 6;
+const ITEMS_PER_PAGE = 12;
 
 const BooksPage = () => {
   const { books, currentUser, deleteBook, updateBook, borrowBook } = useLibrary();
@@ -64,13 +64,22 @@ const BooksPage = () => {
     else toast.error('This book is not available right now');
   };
 
+  // Show a range of page numbers around the current page
+  const getPageNumbers = () => {
+    const pages: number[] = [];
+    const start = Math.max(1, page - 2);
+    const end = Math.min(totalPages, page + 2);
+    for (let i = start; i <= end; i++) pages.push(i);
+    return pages;
+  };
+
   return (
     <AppLayout>
       <div className="space-y-6">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
-            <h1 className="font-display text-3xl font-bold">Books</h1>
-            <p className="text-muted-foreground mt-1">{filtered.length} books found</p>
+            <h1 className="font-display text-3xl font-bold">Computer Science Library</h1>
+            <p className="text-muted-foreground mt-1">{filtered.length} books found · {books.length} total in collection</p>
           </div>
           {isAdmin && (
             <Link to="/books/add">
@@ -89,7 +98,7 @@ const BooksPage = () => {
             <Input placeholder="Search by title or author..." value={search} onChange={e => { setSearch(e.target.value); setPage(1); }} className="pl-10" />
           </div>
           <Select value={category} onValueChange={v => { setCategory(v); setPage(1); }}>
-            <SelectTrigger className="w-full sm:w-48">
+            <SelectTrigger className="w-full sm:w-52">
               <SelectValue placeholder="Category" />
             </SelectTrigger>
             <SelectContent>
@@ -110,47 +119,41 @@ const BooksPage = () => {
         </div>
 
         {/* Book Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
           {paginated.map(book => (
             <Card key={book.id} className="overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 group">
               {/* Book Cover */}
-              <div className={`h-32 bg-gradient-to-br ${getBookCoverColor(book.title)} flex items-center justify-center relative`}>
-                <BookOpen className="h-12 w-12 text-white/30" />
-                <div className="absolute bottom-3 left-4 right-4">
-                  <p className="text-white font-display font-bold text-sm truncate drop-shadow-lg">{book.title}</p>
-                </div>
+              <div className={`h-28 bg-gradient-to-br ${getBookCoverColor(book.title)} flex items-end relative p-4`}>
+                <BookOpen className="absolute top-3 right-3 h-8 w-8 text-white/20" />
+                <p className="text-white/90 font-display font-bold text-xs leading-tight line-clamp-2 drop-shadow-lg">{book.title}</p>
               </div>
-              <CardContent className="p-5 space-y-3">
+              <CardContent className="p-4 space-y-2.5">
                 <div>
-                  <h3 className="font-display font-semibold text-lg leading-tight">{book.title}</h3>
-                  <p className="text-sm text-muted-foreground mt-0.5">{book.author}</p>
+                  <h3 className="font-display font-semibold text-sm leading-tight line-clamp-2">{book.title}</h3>
+                  <p className="text-xs text-muted-foreground mt-0.5">{book.author}</p>
                 </div>
-                <div className="flex flex-wrap gap-2 text-xs">
-                  <span className="bg-secondary px-2.5 py-1 rounded-full text-secondary-foreground font-medium">{book.category}</span>
-                  <span className="bg-muted px-2.5 py-1 rounded-full text-muted-foreground">ISBN: {book.isbn}</span>
+                <div className="flex flex-wrap gap-1.5 text-xs">
+                  <span className="bg-secondary px-2 py-0.5 rounded-full text-secondary-foreground font-medium truncate max-w-[140px]">{book.category}</span>
                 </div>
-                <div className="flex items-center justify-between pt-3 border-t">
-                  <div className="text-sm">
-                    <span className={book.available > 0 ? 'text-success font-semibold' : 'text-destructive font-semibold'}>
-                      {book.available > 0 ? `${book.available} available` : 'Unavailable'}
-                    </span>
-                    <span className="text-muted-foreground"> / {book.quantity}</span>
-                  </div>
+                <div className="flex items-center justify-between pt-2 border-t">
+                  <span className={`text-xs font-semibold ${book.available > 0 ? 'text-success' : 'text-destructive'}`}>
+                    {book.available > 0 ? `${book.available}/${book.quantity} avail.` : 'Unavailable'}
+                  </span>
                   <div className="flex gap-1">
                     {currentUser && book.available > 0 && (
-                      <Button size="sm" variant="outline" onClick={() => handleBorrow(book.id)} className="transition-all hover:bg-primary hover:text-primary-foreground">
+                      <Button size="sm" variant="outline" onClick={() => handleBorrow(book.id)} className="h-7 text-xs px-2 transition-all hover:bg-primary hover:text-primary-foreground">
                         Borrow
                       </Button>
                     )}
                     {isAdmin && (
                       <>
-                        <Button size="sm" variant="ghost" onClick={() => openEdit(book.id)}>
-                          <Edit className="h-4 w-4" />
+                        <Button size="sm" variant="ghost" onClick={() => openEdit(book.id)} className="h-7 w-7 p-0">
+                          <Edit className="h-3.5 w-3.5" />
                         </Button>
                         <AlertDialog>
                           <AlertDialogTrigger asChild>
-                            <Button size="sm" variant="ghost" className="text-destructive hover:text-destructive">
-                              <Trash2 className="h-4 w-4" />
+                            <Button size="sm" variant="ghost" className="h-7 w-7 p-0 text-destructive hover:text-destructive">
+                              <Trash2 className="h-3.5 w-3.5" />
                             </Button>
                           </AlertDialogTrigger>
                           <AlertDialogContent>
@@ -189,14 +192,17 @@ const BooksPage = () => {
         )}
 
         {totalPages > 1 && (
-          <div className="flex justify-center gap-2 pt-4">
-            <Button size="sm" variant="outline" disabled={page === 1} onClick={() => setPage(p => p - 1)}>Previous</Button>
-            {Array.from({ length: totalPages }, (_, i) => (
-              <Button key={i} size="sm" variant={page === i + 1 ? 'default' : 'outline'} onClick={() => setPage(i + 1)}>
-                {i + 1}
+          <div className="flex justify-center items-center gap-2 pt-4">
+            <Button size="sm" variant="outline" disabled={page === 1} onClick={() => setPage(1)}>First</Button>
+            <Button size="sm" variant="outline" disabled={page === 1} onClick={() => setPage(p => p - 1)}>‹</Button>
+            {getPageNumbers().map(i => (
+              <Button key={i} size="sm" variant={page === i ? 'default' : 'outline'} onClick={() => setPage(i)}>
+                {i}
               </Button>
             ))}
-            <Button size="sm" variant="outline" disabled={page === totalPages} onClick={() => setPage(p => p + 1)}>Next</Button>
+            <Button size="sm" variant="outline" disabled={page === totalPages} onClick={() => setPage(p => p + 1)}>›</Button>
+            <Button size="sm" variant="outline" disabled={page === totalPages} onClick={() => setPage(totalPages)}>Last</Button>
+            <span className="text-sm text-muted-foreground ml-2">Page {page} of {totalPages}</span>
           </div>
         )}
       </div>
