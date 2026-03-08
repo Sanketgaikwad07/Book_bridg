@@ -12,6 +12,11 @@ import BooksPage from "./pages/BooksPage";
 import AddBookPage from "./pages/AddBookPage";
 import BorrowPage from "./pages/BorrowPage";
 import BorrowRecordsPage from "./pages/BorrowRecordsPage";
+import CalendarPage from "./pages/CalendarPage";
+import ArticlesPage from "./pages/ArticlesPage";
+import NewsPage from "./pages/NewsPage";
+import ChatPage from "./pages/ChatPage";
+import SupportPage from "./pages/SupportPage";
 import ProfilePage from "./pages/ProfilePage";
 import NotFound from "./pages/NotFound";
 
@@ -33,6 +38,11 @@ const App = () => (
             <Route path="/books/add" element={<AddBookPage />} />
             <Route path="/borrow" element={<BorrowPage />} />
             <Route path="/records" element={<BorrowRecordsPage />} />
+            <Route path="/calendar" element={<CalendarPage />} />
+            <Route path="/articles" element={<ArticlesPage />} />
+            <Route path="/news" element={<NewsPage />} />
+            <Route path="/chat" element={<ChatPage />} />
+            <Route path="/support" element={<SupportPage />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
