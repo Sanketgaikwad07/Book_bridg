@@ -37,6 +37,7 @@ export const CATEGORIES = [
   'Networking',
   'Databases',
   'Artificial Intelligence',
+  'Machine Learning',
   'Software Engineering',
   'Programming',
   'Computer Architecture',
