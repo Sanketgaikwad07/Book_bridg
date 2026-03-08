@@ -129,7 +129,7 @@ export function LibraryProvider({ children }: { children: ReactNode }) {
     </LibraryContext.Provider>
   );
 }
-
+// eslint-disable-next-line react-refresh/only-export-components
 export const useLibrary = () => {
   const ctx = useContext(LibraryContext);
   if (!ctx) throw new Error('useLibrary must be used within LibraryProvider');
