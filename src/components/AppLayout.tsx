@@ -27,13 +27,17 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
-      <header className="sticky top-0 z-50 border-b bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80">
+      <header className="sticky top-0 z-50 border-b bg-card/80 backdrop-blur-xl supports-[backdrop-filter]:bg-card/60">
         <div className="container flex h-16 items-center justify-between">
-          <Link to="/dashboard" className="flex items-center gap-2 font-display text-xl font-bold text-primary">
-            <BookOpen className="h-6 w-6" />
-            <span className="hidden sm:inline">Library MS</span>
+          <Link to="/dashboard" className="flex items-center gap-2.5 group">
+            <div className="rounded-lg bg-gradient-to-br from-primary to-accent p-1.5 transition-transform group-hover:scale-110">
+              <BookOpen className="h-5 w-5 text-white" />
+            </div>
+            <span className="hidden sm:inline font-display text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              BookBridge
+            </span>
           </Link>
-          <nav className="flex items-center gap-1">
+          <nav className="flex items-center gap-0.5">
             {navItems.map(item => {
               if (item.adminOnly && currentUser?.role !== 'admin') return null;
               const active = location.pathname === item.to;
@@ -42,22 +46,23 @@ const AppLayout = ({ children }: { children: ReactNode }) => {
                   <Button
                     variant={active ? 'default' : 'ghost'}
                     size="sm"
-                    className="gap-2 text-sm"
+                    className={`gap-2 text-sm transition-all duration-200 ${active ? 'shadow-md' : 'hover:bg-muted'}`}
                   >
                     <item.icon className="h-4 w-4" />
-                    <span className="hidden md:inline">{item.label}</span>
+                    <span className="hidden lg:inline">{item.label}</span>
                   </Button>
                 </Link>
               );
             })}
-            <Button variant="ghost" size="sm" onClick={handleLogout} className="gap-2 text-destructive hover:text-destructive">
+            <div className="w-px h-6 bg-border mx-1" />
+            <Button variant="ghost" size="sm" onClick={handleLogout} className="gap-2 text-destructive hover:text-destructive hover:bg-destructive/10">
               <LogOut className="h-4 w-4" />
-              <span className="hidden md:inline">Logout</span>
+              <span className="hidden lg:inline">Logout</span>
             </Button>
           </nav>
         </div>
       </header>
-      <main className="flex-1 container py-8">
+      <main className="flex-1 container py-8 animate-fade-in">
         {children}
       </main>
     </div>
