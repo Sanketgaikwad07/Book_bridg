@@ -11,6 +11,7 @@ import DashboardPage from "./pages/DashboardPage";
 import BooksPage from "./pages/BooksPage";
 import AddBookPage from "./pages/AddBookPage";
 import BorrowPage from "./pages/BorrowPage";
+import BorrowRecordsPage from "./pages/BorrowRecordsPage";
 import ProfilePage from "./pages/ProfilePage";
 import NotFound from "./pages/NotFound";
 
@@ -31,6 +32,7 @@ const App = () => (
             <Route path="/books" element={<BooksPage />} />
             <Route path="/books/add" element={<AddBookPage />} />
             <Route path="/borrow" element={<BorrowPage />} />
+            <Route path="/records" element={<BorrowRecordsPage />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
