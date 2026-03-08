@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useLibrary } from '@/context/LibraryContext';
-import { BookOpen, LayoutDashboard, Library, PlusCircle, User, LogOut, BookCopy } from 'lucide-react';
+import { BookOpen, LayoutDashboard, Library, PlusCircle, User, LogOut, BookCopy, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 
@@ -9,7 +9,8 @@ const navItems = [
   { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { to: '/books', label: 'Books', icon: Library },
   { to: '/books/add', label: 'Add Book', icon: PlusCircle, adminOnly: true },
-  { to: '/borrow', label: 'Borrow', icon: BookCopy },
+  { to: '/borrow', label: 'My Borrows', icon: BookCopy },
+  { to: '/records', label: 'Records', icon: FileText, adminOnly: true },
   { to: '/profile', label: 'Profile', icon: User },
 ];
 

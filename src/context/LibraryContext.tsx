@@ -14,6 +14,7 @@ interface LibraryContextType {
   deleteBook: (id: string) => void;
   borrowBook: (bookId: string) => boolean;
   returnBook: (recordId: string) => boolean;
+  checkOverdue: () => void;
 }
 
 const LibraryContext = createContext<LibraryContextType | undefined>(undefined);
@@ -51,6 +52,19 @@ export function LibraryProvider({ children }: { children: ReactNode }) {
   useEffect(() => { localStorage.setItem('lms_books', JSON.stringify(books)); }, [books]);
   useEffect(() => { localStorage.setItem('lms_records', JSON.stringify(records)); }, [records]);
 
+  // Check for overdue books on mount and when records change
+  const checkOverdue = () => {
+    const today = new Date().toISOString().split('T')[0];
+    setRecords(prev => prev.map(r => {
+      if (r.status === 'Borrowed' && r.expectedReturnDate && r.expectedReturnDate < today) {
+        return { ...r, status: 'Overdue' as const };
+      }
+      return r;
+    }));
+  };
+
+  useEffect(() => { checkOverdue(); }, []);
+
   const login = (email: string, password: string): User | null => {
     const u = users.find(u => u.email === email && u.password === password);
     if (u) setCurrentUser(u);
@@ -83,11 +97,17 @@ export function LibraryProvider({ children }: { children: ReactNode }) {
     const book = books.find(b => b.id === bookId);
     if (!book || book.available <= 0 || !currentUser) return false;
     updateBook(bookId, { available: book.available - 1 });
+    
+    // Expected return date is 14 days from now
+    const expectedReturn = new Date();
+    expectedReturn.setDate(expectedReturn.getDate() + 14);
+    
     setRecords(prev => [...prev, {
       id: crypto.randomUUID(),
       userId: currentUser.id,
       bookId,
       borrowDate: new Date().toISOString().split('T')[0],
+      expectedReturnDate: expectedReturn.toISOString().split('T')[0],
       returnDate: null,
       status: 'Borrowed',
     }]);
@@ -104,7 +124,7 @@ export function LibraryProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <LibraryContext.Provider value={{ currentUser, users, books, records, login, register, logout, addBook, updateBook, deleteBook, borrowBook, returnBook }}>
+    <LibraryContext.Provider value={{ currentUser, users, books, records, login, register, logout, addBook, updateBook, deleteBook, borrowBook, returnBook, checkOverdue }}>
       {children}
     </LibraryContext.Provider>
   );
